@@ -1,0 +1,121 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model UserMatches {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  isMatch   Boolean?
+  matchDate DateTime?
+  user1     String?
+  user2     String?
+}
+
+model Photo {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  imageName String?
+  user      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String?
+  sender    String?
+  receiver  String?
+}
+
+model Places {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  description String?
+  title       String?
+  createdBy   String?
+  image       String?
+  user        User[]
+}
+
+model Interest {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  category     String?
+  interestName String?
+}
+
+model UserActions {
+  id         String                     @id @default(cuid())
+  createdAt  DateTime                   @default(now())
+  updatedAt  DateTime                   @updatedAt
+  actionType EnumUserActionsActionType?
+  timestamp  DateTime?
+  user       User?                      @relation(fields: [userId], references: [id])
+  userId     String?
+  fromUserId String?
+  toUserId   String?
+}
+
+model UserBubbles {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id                  String              @id @default(cuid())
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
+  firstName           String?
+  lastName            String?
+  username            String              @unique
+  email               String?             @unique
+  password            String
+  roles               Json
+  aboutMe             String?
+  occupation          String?
+  education           String?
+  hometown            String?
+  height              Int?
+  smokingStatus       Boolean?
+  children            Boolean?
+  profilePicture      String?
+  phoneNumber         String?
+  profileVerified     Boolean?
+  phoneNumberVerified Boolean?
+  birthday            DateTime?
+  gender              EnumUserGender?
+  showGender          Boolean?
+  longitude           Float?
+  latitude            Float?
+  interests           EnumUserInterests[]
+  name                String?
+  surname             String?
+  aboutMatch          String?
+  socialMode          Boolean?
+  photos              Photo[]
+  place               Places[]
+  userActionsItems    UserActions[]
+}
+
+enum EnumUserActionsActionType {
+  Option1
+}
+
+enum EnumUserGender {
+  Option1
+}
+
+enum EnumUserInterests {
+  Option1
+}
