@@ -1,0 +1,37 @@
+import { InputJsonValue } from "../../types";
+import { PhotoCreateNestedManyWithoutUsersInput } from "./PhotoCreateNestedManyWithoutUsersInput";
+import { PlacesCreateNestedManyWithoutUsersInput } from "./PlacesCreateNestedManyWithoutUsersInput";
+import { UserActionsCreateNestedManyWithoutUsersInput } from "./UserActionsCreateNestedManyWithoutUsersInput";
+
+export type UserCreateInput = {
+  firstName?: string | null;
+  lastName?: string | null;
+  username: string;
+  email?: string | null;
+  password: string;
+  roles: InputJsonValue;
+  aboutMe?: string | null;
+  occupation?: string | null;
+  education?: string | null;
+  hometown?: string | null;
+  height?: number | null;
+  smokingStatus?: boolean | null;
+  children?: boolean | null;
+  profilePicture?: string | null;
+  phoneNumber?: string | null;
+  profileVerified?: boolean | null;
+  phoneNumberVerified?: boolean | null;
+  birthday?: Date | null;
+  gender?: "Option1" | null;
+  showGender?: boolean | null;
+  longitude?: number | null;
+  latitude?: number | null;
+  interests?: Array<"Option1">;
+  name?: string | null;
+  surname?: string | null;
+  aboutMatch?: string | null;
+  socialMode?: boolean | null;
+  photos?: PhotoCreateNestedManyWithoutUsersInput;
+  place?: PlacesCreateNestedManyWithoutUsersInput;
+  userActionsItems?: UserActionsCreateNestedManyWithoutUsersInput;
+};
